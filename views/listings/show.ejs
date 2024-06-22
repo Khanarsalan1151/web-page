@@ -1,0 +1,72 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row">
+    <div class="col-8 offset-2">
+        <h3><b><%= selectedList.title %></b></h3>
+    </div>
+    <div class="card col-6 offset-2 show-card listing-card">
+        <img class="card-img-top show-img" src="<%= selectedList.img %>" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text"><br>
+            <%= selectedList.description %><br>
+            &#8377 <%= selectedList.price.toLocaleString("en-IN") %><br>
+            <%= selectedList.country %><br>
+            <%= selectedList.location %>
+
+        </p>
+        <div class="btns">
+            <form method="get" action="/listings/<%= selectedList.id %>/edit">
+                <button class="btn btn-dark edit-btn ">Edit</button>
+            </form>
+
+            <form method="post" action="/listings/<%= selectedList.id %>/remove?_method=DELETE">
+                <button class="btn btn-dark">Delete</button>
+            </form> 
+             
+        </div>
+        <hr>
+        <h4>All reviews</h4>
+
+        <div class="row">
+        <% for(let review of selectedList.reviews){ %>
+            <div class="card col-5 ms-3 mb-3 ">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text"><%= review.comment %></p>
+                    <p class="card-text"><%= review.rating %></p>
+                </div>
+                <form class="mb-3 mt-3" method="POST" action="/listings/<%=selectedList.id %>/review/<%= review.id %>?_method=DELETE">
+                    <button class="btn btn-dark">DELETE</button>
+                </form>
+            </div>
+           
+            <% } %>    
+        </div>
+        <h4>Average rating</h4>
+
+        <hr>
+        <div>
+            <h4>Leave a review</h4>
+            <form class="mb-3 mt-3" method="post" action="/listings/<%= selectedList.id %>/review" novalidate class="needs-validation">
+                <div class="mb-3 mt-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input id="rating" step="1"  name="review[rating]" type="range" min="1" max="5">
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="comment" class="form-label">Comment:</label>
+                    <textarea id="comment" class="form-control" placeholder="How was your experience?" name="review[comment]" cols="20" rows="5"   required></textarea>
+                </div>
+
+                <div class="invalid-feedback">Please add come comments for review</div>
+
+                <br>
+                <button class="btn btn-outline-dark">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+    
