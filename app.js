@@ -11,8 +11,12 @@ const url = "mongodb://127.0.0.1:27017/wanderlust"
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoute = require("./routes/listingRout.js")
 const reviewRoute = require("./routes/reviewRoutes.js")
+const userRoute = require("./routes/userRoutes.js");
 const session = require("express-session");
-const flash = require("connect-flash")
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 
 
@@ -54,11 +58,25 @@ app.use(session(sessionOptions));
 app.use(flash());
 
 
+// Initalizing passport here 
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error")
     next();
 })
+
+
 
 // HAndling listings
 
@@ -67,7 +85,9 @@ app.use("/listings", listingsRoute);
 // handling review Routes
 app.use("/listings/:id/review", reviewRoute)
 
+// Signup route here 
 
+app.use("/", userRoute)
 // Error Handling Error
 
 app.all("*",(req,res,next) =>{
