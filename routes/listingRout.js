@@ -4,8 +4,9 @@ const listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const {listingSchema} = require("../schema.js");
-
-
+const {isLoggedIn} = require("../middleware.js");
+const {isLoggedInsidelist} = require("../middleware.js")
+const User = require("../models/user.js")
 
 
 
@@ -47,6 +48,9 @@ router.post("/", validatelisting, wrapAsync(async (req,res,next)=>{
     country:country,
     });
 
+    newlisting.owner = req.user._id;
+    // PAssport by default req.user mein info aayega usko hum ._id ko addd kr diya
+
     await newlisting.save();
 
     req.flash("success","New list has been created")
@@ -59,9 +63,9 @@ router.post("/", validatelisting, wrapAsync(async (req,res,next)=>{
 
 
 // Create new route form
-router.get("/new", wrapAsync((req,res)=>{
-    res.render("listings/form.ejs");
-}));
+router.get("/new", isLoggedIn, (req,res)=>{
+      res.render("listings/form.ejs");
+});
 
 
 
@@ -71,8 +75,11 @@ router.get("/new", wrapAsync((req,res)=>{
 // Show individual Route
 router.get("/:id", wrapAsync(async (req,res)=>{
     let {id} = req.params;
-    const selectedList =  await listing.findById(`${id}`).populate("reviews")
+    const selectedList =  await listing.findById(`${id}`)
+    .populate("reviews")
+    .populate("owner")
   
+    console.log(selectedList)
     if(!selectedList){
         req.flash("error","Listing you requested for does not exist");
         res.redirect("/listings")
@@ -85,7 +92,7 @@ router.get("/:id", wrapAsync(async (req,res)=>{
 
 
 
-router.get("/:id/edit", wrapAsync(async (req,res)=>{
+router.get("/:id/edit",isLoggedInsidelist, wrapAsync(async (req,res)=>{
     let{id}= req.params;
 
     let selectedList = await listing.findById(`${id}`);
@@ -104,7 +111,7 @@ router.get("/:id/edit", wrapAsync(async (req,res)=>{
 
 
 
-router.patch("/:id",validatelisting, wrapAsync(async (req,res)=>{
+router.patch("/:id",validatelisting,isLoggedInsidelist, wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let{title : newTitle, description : newDescription, img: newImg, price: newPrice, country: newCountry, location: newLocation} = req.body;
 
@@ -126,7 +133,7 @@ router.patch("/:id",validatelisting, wrapAsync(async (req,res)=>{
 
 // idhr each middleware call hogga listing .js ak
 
-router.delete("/:id/remove",wrapAsync( async (req,res)=>{
+router.delete("/:id/remove",isLoggedInsidelist, wrapAsync( async (req,res)=>{
     let {id} = req.params;
     await listing.findByIdAndDelete(id);
 
