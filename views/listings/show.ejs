@@ -30,7 +30,7 @@
             </form> 
              
         </div>
-        <% } %>
+        <% } %> 
         <hr>
         <h4>All reviews</h4>
 
@@ -38,13 +38,23 @@
         <% for(let review of selectedList.reviews){ %>
             <div class="card col-5 ms-3 mb-3 ">
                 <div class="card-body">
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">@<%=review.author.username%></h5>
                     <p class="card-text"><%= review.comment %></p>
                     <p class="card-text"><%= review.rating %></p>
                 </div>
-                <form class="mb-3 mt-3" method="POST" action="/listings/<%=selectedList.id %>/review/<%= review.id %>?_method=DELETE">
+
+                <% if(currentUser && currentUser._id.equals(review.author._id)){ %>
+
+
+                    <form class="mb-3 mt-3" method="POST" action="/listings/<%=selectedList.id %>/review/<%= review.id %>?_method=DELETE">
+
+
                     <button class="btn btn-dark">DELETE</button>
+                    
                 </form>
+                <% } %>
+
+
             </div>
            
             <% } %>    
@@ -52,6 +62,7 @@
         <h4>Average rating</h4>
 
         <hr>
+        <% if(currentUser){ %>
         <div>
             <h4>Leave a review</h4>
             <form class="mb-3 mt-3" method="post" action="/listings/<%= selectedList.id %>/review" novalidate class="needs-validation">
@@ -71,6 +82,7 @@
                 <button class="btn btn-outline-dark">Submit</button>
             </form>
         </div>
+        <% } %>
     </div>
 </div>
 </div>

@@ -2,29 +2,7 @@ const express= require("express");
 const router = express.Router();
 const listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const ExpressError = require("../utils/ExpressError.js");
-const {listingSchema} = require("../schema.js");
-const {isLoggedIn} = require("../middleware.js");
-const {isLoggedInsidelist} = require("../middleware.js")
-const User = require("../models/user.js")
-
-
-
-
-// Joi validation using function as a middleware
-const validatelisting = (req,res,next)=>{
-    let {error}= listingSchema.validate(req.body);
-
-    if(error){
-        let errordetailes = error.details.map((el)=> el.message).join(",")
-        throw new ExpressError(400, error)
-    }else{
-        next();
-    }
-
-}
-
-
+const {isLoggedIn, isLoggedInsidelist, isOwner, validatelisting} = require("../middleware.js");
 
 // Index  route
 router.get("/", wrapAsync(async (req,res)=>{
@@ -76,10 +54,14 @@ router.get("/new", isLoggedIn, (req,res)=>{
 router.get("/:id", wrapAsync(async (req,res)=>{
     let {id} = req.params;
     const selectedList =  await listing.findById(`${id}`)
-    .populate("reviews")
+    .populate({path: "reviews",
+        populate:{
+            path:"author"
+        }
+    })
     .populate("owner")
-  
-    console.log(selectedList)
+
+
     if(!selectedList){
         req.flash("error","Listing you requested for does not exist");
         res.redirect("/listings")
@@ -92,7 +74,10 @@ router.get("/:id", wrapAsync(async (req,res)=>{
 
 
 
-router.get("/:id/edit",isLoggedInsidelist, wrapAsync(async (req,res)=>{
+router.get("/:id/edit",
+    isLoggedInsidelist,
+    isOwner,
+    wrapAsync(async (req,res)=>{
     let{id}= req.params;
 
     let selectedList = await listing.findById(`${id}`);
@@ -102,7 +87,7 @@ router.get("/:id/edit",isLoggedInsidelist, wrapAsync(async (req,res)=>{
         res.redirect("/listings")
     }else{
         res.render("listings/updateform.ejs",{selectedList})
-    }
+    };
 
     
 }))
@@ -111,10 +96,10 @@ router.get("/:id/edit",isLoggedInsidelist, wrapAsync(async (req,res)=>{
 
 
 
-router.patch("/:id",validatelisting,isLoggedInsidelist, wrapAsync(async (req,res)=>{
+router.patch("/:id",isLoggedInsidelist, isOwner, validatelisting, wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let{title : newTitle, description : newDescription, img: newImg, price: newPrice, country: newCountry, location: newLocation} = req.body;
-
+    
     await listing.findByIdAndUpdate(id, {
         title:newTitle,
         description: newDescription,
@@ -122,18 +107,18 @@ router.patch("/:id",validatelisting,isLoggedInsidelist, wrapAsync(async (req,res
         price:newPrice,
         location:newLocation,
         country:newCountry,
-    })
+    });
 
 
-    req.flash("success","List updated")
-    res.redirect("/listings")
+    req.flash("success","List updated");
+    res.redirect("/listings");
 
 }))
 
 
 // idhr each middleware call hogga listing .js ak
 
-router.delete("/:id/remove",isLoggedInsidelist, wrapAsync( async (req,res)=>{
+router.delete("/:id/remove",isLoggedInsidelist,isOwner, wrapAsync( async (req,res)=>{
     let {id} = req.params;
     await listing.findByIdAndDelete(id);
 
