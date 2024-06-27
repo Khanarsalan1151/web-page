@@ -103,7 +103,10 @@ body{
 
 }
 
-
+.review-card{
+    border: 1px solid rgb(104, 103, 103) !important;
+    border-radius: 10px !important;
+}
 
 .card-img-top{
     border-radius: 1rem !important;
