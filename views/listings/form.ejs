@@ -1,17 +1,13 @@
 <% layout("layouts/boilerplate.ejs") %>
 
-
-<body>
-    
-
     <div class="row">
         <div class="col-8 offset-2">
 
-    <form method="post" action="/listings" novalidate class="needs-validation">
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
         <h1>Create a new listing</h1>
         <div class="mb-4 ">
             <label for="title" class="form-label">Title</label>
-            <input type:="text" name="title" class="form-control" placeholder="Add a catchy title" required >
+            <input type:="text" name="listings[title]" class="form-control" placeholder="Add a catchy title" required >
             <div class="valid-feedback">Title look good!!</div>
         </div>
         
@@ -20,26 +16,24 @@
         
         <div class="mb-4">
             <label for="description" class="form-label">Description:</label>
-            <textarea type="textarea"  class="form-control" name="description" placeholder="Enter the  discription" required></textarea>
+            <textarea type="textarea"  class="form-control" name="listings[description]" placeholder="Enter the  discription" required></textarea>
             <div class="invalid-feedback">write a short description</div>
 
         </div>
-        
-       
-        
-        
+
         <div class="mb-4">
             <label for="img" class="form-label">Image</label>
-            <input type="text" class="form-control" name="img" placeholder="Enter the image URL">
+            <input type="file" class="form-control" name="listings[img]" placeholder="Enter the image URL">
             
         </div>
+       
        
         
         <div class="row">
             <div class="mb-4 col-md-4">
                 <label for="price" class="form-label">Price:</label>
         
-                <input name="price" class="form-control" type="number" placeholder="1,200" required>
+                <input name="listings[price]" class="form-control" type="number" placeholder="1,200" required>
                 <div class="invalid-feedback">Please enter correct price</div>
     
             </div>
@@ -49,7 +43,7 @@
                 <div class="mb-4 col-md-8">
                     <label for="country" class="form-label">Country</label>
         
-                    <input name="country" class="form-control" type="text" placeholder="India" required>
+                    <input name="listings[country]" class="form-control" type="text" placeholder="India" required>
                     <div class="invalid-feedback">Please enter valid country</div>
 
                 </div>
@@ -61,7 +55,7 @@
         <div class="mb-4">
             <label for="location" class="form-label">Location:</label>
 
-            <input name="location" class="form-control" type="text" placeholder="Jaipur" required>
+            <input name="listings[location]" class="form-control" type="text" placeholder="Jaipur" required>
 
             <div class="invalid-feedback">Please enter valid location</div>
 
@@ -69,11 +63,10 @@
 
         
         
-                <button class="btn btn-dark add-btn">Add</button>
+        <button class="btn btn-dark add-btn">Add</button>
     </form>
     
-        </div>
-    </div>
-    <br>
-    <br>
-</body>
+     </div>
+</div>
+<br>
+<br>

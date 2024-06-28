@@ -2,12 +2,12 @@
 
 <div class="row">
     <div class="col-8 offset-2">
-        <form method="post" action="/listings/<%= selectedList.id %>?_method=PATCH" novalidate class="needs-validation">
+        <form method="post" action="/listings/<%= selectedList.id %>?_method=PATCH" novalidate class="needs-validation" enctype="multipart/form-data">
 
             <h1>Update the list</h1>
             <div class="mb-4 ">
                 <label for="title" class="form-label">Title</label>
-                <input type:="text" name="title" class="form-control" value="<%= selectedList.title %>" required>
+                <input type:="text" name="listings[title]" class="form-control" value="<%= selectedList.title %>" required>
                 <div class="valid-feedback">Title look good!!</div>
 
             </div>
@@ -16,17 +16,29 @@
             
             <div class="mb-4">
                 <label for="description" class="form-label">Description:</label>
-                <textarea type="textarea"  class="form-control" name="description"
+                <textarea type="textarea"  class="form-control" name="listings[description]"
                 required><%= selectedList.description %></textarea>
 
                 <div class="invalid-feedback">write a short description</div>
             </div>
            
+
+            <div class="mb-4">
+                Orignial listing image <br />
+                <br/>
+                <img src="<%= originalImageurl%>">
+
+            </div>
             
             
             <div class="mb-4">
-                <label for="img" class="form-label">Image</label>
-                <input type="text" class="form-control" name="img" value="<%= selectedList.img %>" required >
+               
+                <label for="img" class="form-label">Upload Image</label>
+                <input 
+                type="file" 
+                class="form-control" 
+                name="listings[img]" 
+                value="<%= selectedList.img %>"  >
 
                 <div class="invalid-feedback">Dont leave blank for image URL</div>
             </div>
@@ -36,7 +48,7 @@
                 <div class="mb-4 col-md-4">
                     <label for="price" class="form-label">Price:</label>
             
-                    <input name="price" class="form-control" type="number" value="<%= selectedList.price %>" required>
+                    <input name="listings[price]" class="form-control" type="number" value="<%= selectedList.price %>" required>
 
                     <div class="invalid-feedback">Enter the correct price!!!</div>
     
@@ -47,7 +59,7 @@
                     <div class="mb-4 col-md-8">
                         <label for="country" class="form-label">Country</label>
             
-                        <input name="country" class="form-control" type="text" value="<%= selectedList.country %>"
+                        <input name="listings[country]" class="form-control" type="text" value="<%= selectedList.country %>"
                         required>
                         <div class="invalid-feedback">Please enter correct country</div>
     
@@ -61,7 +73,7 @@
             <div class="mb-4">
                 <label for="location" class="form-label">Location:</label>
     
-                <input name="location" class="form-control" type="text" value="<%= selectedList.location %>" required>
+                <input name="listings[location]" class="form-control" type="text" value="<%= selectedList.location %>" required>
 
                 <div class="invalid-feedback">Please enter correct location</div>
     

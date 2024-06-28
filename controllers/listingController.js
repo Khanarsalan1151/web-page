@@ -34,19 +34,14 @@ module.exports.showIndividualListing = async (req,res)=>{
 
 
 module.exports.createNewList = async (req,res,next)=>{
+    let url = req.file.path;
+    let filename = req.file.filename;
 
-    let{title, description, img, price, country, location} = req.body;
   
-    const newlisting = new listing({
-    title:title,
-    description:description,
-    img:img,
-    price:price,
-    location:location,
-    country:country,
-    });
+    const newlisting = new listing(req.body.listings);
 
     newlisting.owner = req.user._id;
+    newlisting.img={url,filename}
     // PAssport by default req.user mein info aayega usko hum ._id ko addd kr diya
 
     await newlisting.save();
@@ -66,7 +61,11 @@ module.exports.editListForm = async (req,res)=>{
         req.flash("error","Listing you requested for does not exist");
         res.redirect("/listings")
     }else{
-        res.render("listings/updateform.ejs",{selectedList})
+        let originalImageurl = selectedList.img.url
+
+        originalImageurl = originalImageurl.replace("/upload","/upload/w_250")
+        console.log(originalImageurl)
+        res.render("listings/updateform.ejs",{selectedList, originalImageurl})
     };
 
     
@@ -74,17 +73,17 @@ module.exports.editListForm = async (req,res)=>{
 
 module.exports.editList= async (req,res)=>{
     let {id} = req.params;
-    let{title : newTitle, description : newDescription, img: newImg, price: newPrice, country: newCountry, location: newLocation} = req.body;
+   
     
-    await listing.findByIdAndUpdate(id, {
-        title:newTitle,
-        description: newDescription,
-        img:newImg,
-        price:newPrice,
-        location:newLocation,
-        country:newCountry,
-    });
+    
+    let newlisting = await listing.findByIdAndUpdate(id, {...req.body.listings});
 
+    if(typeof req.file !== "undefined"){
+        let url = req.file.path;
+        let filename = req.file.filename;
+        newlisting.img ={url,filename};
+        newlisting.save();
+    }
 
     req.flash("success","List updated");
     res.redirect("/listings");
