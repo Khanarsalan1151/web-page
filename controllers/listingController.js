@@ -1,6 +1,7 @@
 const listing = require("../models/listing.js")
-
-
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken = process.env.MAP_TOKEN;
+const geocodingClient = mbxGeocoding({accessToken : mapToken });
 
 module.exports.index = async(req,res) =>{
     const printinglistings =await listing.find({})
@@ -34,16 +35,26 @@ module.exports.showIndividualListing = async (req,res)=>{
 
 
 module.exports.createNewList = async (req,res,next)=>{
+    console.log("hello world")
+    console.log(req.body.listings.location)
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.listings.location,
+        limit: 1
+    }).send()
+    
     let url = req.file.path;
-    let filename = req.file.filename;
 
-  
+    let filename = req.file.filename;  
+
     const newlisting = new listing(req.body.listings);
 
     newlisting.owner = req.user._id;
-    newlisting.img={url,filename}
-    // PAssport by default req.user mein info aayega usko hum ._id ko addd kr diya
 
+    newlisting.img={url,filename};
+
+    // PAssport by default req.user mein info aayega usko hum ._id ko addd kr diya
+    newlisting.geometry= response.body.features[0].geometry;
+    
     await newlisting.save();
 
     req.flash("success","New list has been created")

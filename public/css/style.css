@@ -169,3 +169,9 @@ body{
     background-color: #fe424d !important;
     width:100px !important;
 }
+
+#map{
+    height: 400px;
+    width: 80vh;
+
+}
