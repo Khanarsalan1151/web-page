@@ -90,6 +90,9 @@ app.use((req,res,next)=>{
 
 
 // HAndling listings
+app.get("/",(req,res)=>{[
+    res.send("this is the home")
+]})
 
 app.use("/listings", listingsRoute);
 
