@@ -35,8 +35,6 @@ module.exports.showIndividualListing = async (req,res)=>{
 
 
 module.exports.createNewList = async (req,res,next)=>{
-    console.log("hello world")
-    console.log(req.body.listings.location)
     let response = await geocodingClient.forwardGeocode({
         query: req.body.listings.location,
         limit: 1
