@@ -53,8 +53,9 @@ app.engine("ejs", ejsMate);
 const store = MongoStore.create({
     mongourl: url,
     crypto:{
-        secret:process.env.SECRET},
-    touchAfter: 24*3600
+        secret:process.env.SECRET
+    },
+    touchAfter: 24*3600,
 
 })
 
