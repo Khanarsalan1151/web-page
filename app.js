@@ -22,7 +22,6 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const {isLoggedIn} = require("./middleware.js");
 
 
 // starting the database connection
@@ -50,7 +49,7 @@ app.engine("ejs", ejsMate);
 
 // Using multer;
 
-const store = MongoStore.create({
+const Mongodbstore = MongoStore.create({
     mongourl: url,
     crypto:{
         secret:process.env.SECRET
@@ -66,7 +65,7 @@ store.on("error", ()=>{
 
 
 const sessionOptions ={
-    store,
+    store:Mongodbstore,
 
     secret:process.env.SECRET,
     resave: false,
