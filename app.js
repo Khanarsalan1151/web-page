@@ -50,7 +50,7 @@ app.engine("ejs", ejsMate);
 // Using multer;
 
 const Mongodbstore = MongoStore.create({
-    mongourl: url,
+    mongoUrl: url,
     crypto:{
         secret:process.env.SECRET
     },
