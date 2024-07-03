@@ -1,7 +1,6 @@
 // Constant requirements
 if(process.env.NODE_ENV != "production"){
     require("dotenv").config();
-
 }
 
 const express = require("express");
@@ -11,7 +10,8 @@ const port = 3000;
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const url = process.env.ATLASDB_URL;
+const localurl = "mongodb://127.0.0.1:27017/wanderlust"
+const url = process.env.ATLASDB_URL
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoute = require("./routes/listingRout.js")
 const reviewRoute = require("./routes/reviewRoutes.js")
@@ -33,6 +33,7 @@ main().then(()=>{
 
 //Function to start a database connection;
 
+console.log(url)
 async function main(){
    await mongoose.connect(url);
 }
@@ -47,7 +48,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"public")));
 app.engine("ejs", ejsMate);
 
-// Using multer;
+
 
 const Mongodbstore = MongoStore.create({
     mongoUrl: url,
