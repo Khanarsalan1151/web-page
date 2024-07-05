@@ -32,8 +32,6 @@ main().then(()=>{
 });
 
 //Function to start a database connection;
-
-console.log(mongoUrl)
 async function main(){
   await  mongoose.connect(mongoUrl);
 }
@@ -51,7 +49,7 @@ app.engine("ejs", ejsMate);
 
 
 const Mongodbstore = MongoStore.create({
-    mongoUrl: url,
+    mongoUrl: mongoUrl,
     crypto:{
         secret:process.env.SECRET
     },
@@ -106,10 +104,6 @@ app.use((req,res,next)=>{
 
 
 // HAndling listings
-
-app.get("/", (req,res)=>{
-    
-})
 
 
 app.use("/listings", listingsRoute);
