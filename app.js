@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const localurl = "mongodb://127.0.0.1:27017/wanderlust"
-const url = process.env.ATLASDB_URL
+const mongoUrl = process.env.ATLASDB_URL
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoute = require("./routes/listingRout.js")
 const reviewRoute = require("./routes/reviewRoutes.js")
@@ -33,9 +33,9 @@ main().then(()=>{
 
 //Function to start a database connection;
 
-console.log(url)
+console.log(mongoUrl)
 async function main(){
-  await  mongoose.connect(url);
+  await  mongoose.connect(mongoUrl);
 }
 
 //Functionalities of app
@@ -73,7 +73,7 @@ const sessionOptions ={
     saveUninitialized: true,
     cookie:{
         expires: Date.now() + 7*27*60*60*1000,
-        maxAge: 7*27*60*60*1000,
+        maxAge: 7*24*60*60*1000,
         httpOnly : true,
     }
 }
@@ -106,6 +106,10 @@ app.use((req,res,next)=>{
 
 
 // HAndling listings
+
+app.get("/", (req,res)=>{
+    
+})
 
 
 app.use("/listings", listingsRoute);

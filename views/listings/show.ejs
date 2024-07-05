@@ -1,5 +1,7 @@
 
 <% layout("/layouts/boilerplate") %>
+
+
 <script>
     
   const   mapTokentop= "<%= process.env.MAP_TOKEN %>";
@@ -7,6 +9,8 @@
   const  listingstringify =  <%-JSON.stringify( selectedList )%> ;
 
   </script>
+
+
 <div class="row">
     <div class="col-8 offset-2">
         <h3><b><%= selectedList.title %></b></h3>
