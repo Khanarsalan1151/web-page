@@ -1,5 +1,5 @@
 // Constant requirements
-if(process.env.NODE_ENV != "production"){
+if(process.env.NODE_ENV !== "production"){
     require("dotenv").config();
 }
 
@@ -35,7 +35,7 @@ main().then(()=>{
 
 console.log(url)
 async function main(){
-   await mongoose.connect(url);
+  await  mongoose.connect(url);
 }
 
 //Functionalities of app
