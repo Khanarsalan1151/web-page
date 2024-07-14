@@ -10,18 +10,21 @@ const port = 3000;
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const localurl = "mongodb://127.0.0.1:27017/wanderlust"
+const localUrl = "mongodb://127.0.0.1:27017/wanderlust"
 const mongoUrl = process.env.ATLASDB_URL
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoute = require("./routes/listingRout.js")
 const reviewRoute = require("./routes/reviewRoutes.js")
 const userRoute = require("./routes/userRoutes.js");
+const forgetRoute = require("./routes/forgetRoute.js")
 const session = require("express-session");
 const MongoStore = require("connect-mongo")
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+
+
 
 
 // starting the database connection
@@ -33,7 +36,7 @@ main().then(()=>{
 
 //Function to start a database connection;
 async function main(){
-  await  mongoose.connect(mongoUrl);
+  await  mongoose.connect(localUrl);
 }
 
 //Functionalities of app
@@ -49,7 +52,7 @@ app.engine("ejs", ejsMate);
 
 
 const Mongodbstore = MongoStore.create({
-    mongoUrl: mongoUrl,
+    mongoUrl: localUrl,
     crypto:{
         secret:process.env.SECRET
     },
@@ -114,6 +117,8 @@ app.use("/listings/:id/review", reviewRoute)
 // Signup route here 
 
 app.use("/", userRoute)
+
+app.use("/forgotPass", forgetRoute)
 // Error Handling Error
 
 app.all("*",(req,res,next) =>{

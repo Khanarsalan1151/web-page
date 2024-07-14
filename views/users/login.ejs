@@ -1,3 +1,21 @@
+<style>
+    .forgotClass{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap:15px;
+    }
+
+    .forgotClass .btn{
+        width: 45% !important
+    }
+    .forgotClass a{
+        text-decoration: none;
+        color: red;
+        font-size: 0.8rem;
+    }
+</style>
+
 <% layout("/layouts/boilerplate") %>
 
 <div class="row mt-3">
@@ -34,7 +52,13 @@
                 required >
             </div>         
 
-            <button class="btn btn-success">login</button>
+            <div class="forgotClass">
+                <button class="btn btn-success">login</button>
+                <a href="/forgotPass">Forgot Password?</a>
+                
+            </div>
+
+            
 
         </form>
     </div>

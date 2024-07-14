@@ -1,5 +1,7 @@
-const User = require("../models/user.js")
 
+const listing = require("../models/listing.js")
+const User = require("../models/user.js");
+const nodemailer = require("nodemailer");
 
 module.exports.signupPage = (req,res)=>{
     res.render("users/signup.ejs")
@@ -8,8 +10,9 @@ module.exports.signupPage = (req,res)=>{
 module.exports.signUpfunction = async (req,res,next)=>{
     try{
         let{username, email, password} = req.body;
-        const newUser = new User({email,username});
+        const newUser = new User({email,username})
         const registeredUser = await User.register(newUser,password);
+        console.log(newUser)
         req.login(registeredUser, (err)=>{
             if(err){
                 return next(err)
@@ -47,4 +50,5 @@ module.exports.logOutFunctionality = (req,res)=>{
             req.flash("success","You are logged out");
             res.redirect("/listings");
         }
-})}
+})};
+
