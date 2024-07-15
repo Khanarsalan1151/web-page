@@ -120,7 +120,11 @@ module.exports.deleteList = async (req,res)=>{
 
 module.exports.Search = async (req,res) =>{
     let {place} = req.query
-    let printingListings = await listing.find({$or:[{location: `${place}`}, {title: {$regex : `${place}` }}]})
+    let printingListings = await listing.find({$or:[
+        {location: {$regex : `${place}`, $options:"i"  }},
+        {title: {$regex : `${place}`, $options:"i"  }},
+        {country: {$regex : `${place}`, $options:"i"  }},
+    ]})
     if(printingListings[0]){
         res.render("./listings/index.ejs",{printingListings})
     }else{
