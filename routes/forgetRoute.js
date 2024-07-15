@@ -5,9 +5,9 @@ const forgetController = require("../controllers/forgotController.js");
 
 router.route("/")
     .get(forgetController.forgotPassForm)
-    .post(forgetController.forgotPassFunction);
+    .post(wrapAsync(forgetController.forgotPassFunction));
 
 router.route("/:user")
-    .post(forgetController.setNewPass);
+    .post(wrapAsync(forgetController.setNewPass));
 
 module.exports =  router

@@ -81,10 +81,7 @@ module.exports.editListForm = async (req,res)=>{
 }
 
 module.exports.editList= async (req,res)=>{
-    let {id} = req.params;
-   
-    
-    
+    let {id} = req.params;    
     let newlisting = await listing.findByIdAndUpdate(id, {...req.body.listings});
 
     if(typeof req.file !== "undefined"){
@@ -102,7 +99,7 @@ module.exports.editList= async (req,res)=>{
 module.exports.deleteList = async (req,res)=>{
     let {id} = req.params;
     let{title : newTitle, description : newDescription, img: newImg, price: newPrice, country: newCountry, location: newLocation} = req.body;
-    
+
     await listing.findByIdAndUpdate(id, {
         title:newTitle,
         description: newDescription,
@@ -111,8 +108,7 @@ module.exports.deleteList = async (req,res)=>{
         location:newLocation,
         country:newCountry,
     });
-
-
+    
     req.flash("success","List updated");
     res.redirect("/listings");
 

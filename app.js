@@ -36,7 +36,7 @@ main().then(()=>{
 
 //Function to start a database connection;
 async function main(){
-  await  mongoose.connect(mongoUrl);
+  await  mongoose.connect(localUrl);
 }
 
 //Functionalities of app
@@ -51,8 +51,8 @@ app.engine("ejs", ejsMate);
 
 
 
-const Mongodbstore = MongoStore.create({
-    mongoUrl: mongoUrl,
+const MongodbStore = MongoStore.create({
+    mongoUrl: localUrl,
     crypto:{
         secret:process.env.SECRET
     },
@@ -60,14 +60,14 @@ const Mongodbstore = MongoStore.create({
 
 })
 
-Mongodbstore.on("error", ()=>{
+MongodbStore.on("error", ()=>{
     console.log("ERROR in MONGO SESSION STORE", err)
 })
 
 
 
 const sessionOptions ={
-    store:Mongodbstore,
+    store:MongodbStore,
 
     secret:process.env.SECRET,
     resave: false,
