@@ -45,12 +45,13 @@
 
 
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
+        <form class="d-flex" role="search" action="/listings/search" method="get" >
           <input 
           class="form-control me-2 search-input" 
           type="search" 
           placeholder="Search Destination" 
-          aria-label="Search">
+          aria-label="Search"
+          name="place">
 
           <button 
           class="btn btn-search" 

@@ -4,8 +4,8 @@ const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({accessToken : mapToken });
 
 module.exports.index = async(req,res) =>{
-    const printinglistings =await listing.find({})
-    res.render("listings/index.ejs",{printinglistings})
+    const printingListings =await listing.find({})
+    res.render("listings/index.ejs",{printingListings})
 };
 
 
@@ -116,4 +116,16 @@ module.exports.deleteList = async (req,res)=>{
     req.flash("success","List updated");
     res.redirect("/listings");
 
+};
+
+module.exports.Search = async (req,res) =>{
+    let {place} = req.query
+    let printingListings = await listing.find({$or:[{location: `${place}`}, {title: {$regex : `${place}` }}]})
+    if(printingListings[0]){
+        res.render("./listings/index.ejs",{printingListings})
+    }else{
+        req.flash("error","No such Place List found")
+        res.redirect("/listings")
+    }
+    
 }

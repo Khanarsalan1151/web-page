@@ -36,7 +36,7 @@ main().then(()=>{
 
 //Function to start a database connection;
 async function main(){
-  await  mongoose.connect(mongoUrl);
+  await  mongoose.connect(localUrl);
 }
 
 //Functionalities of app
@@ -52,7 +52,7 @@ app.engine("ejs", ejsMate);
 
 
 const Mongodbstore = MongoStore.create({
-    mongoUrl: mongoUrl,
+    mongoUrl: localUrl,
     crypto:{
         secret:process.env.SECRET
     },

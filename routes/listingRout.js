@@ -24,6 +24,8 @@ router
 
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
+router.get("/search", listingController.Search )
+
 router
 .route("/:id")
 .get(wrapAsync(listingController.showIndividualListing))
@@ -32,5 +34,8 @@ router
 
 // Editing form of listing
 router.get("/:id/edit",isLoggedInsidelist,isOwner,wrapAsync(listingController.editListForm));
+
+
+
 
 module.exports= router
