@@ -45,7 +45,6 @@ module.exports.createNewList = async (req,res,next)=>{
     let filename = req.file.filename;  
 
     const newlisting = new listing(req.body.listings);
-
     newlisting.owner = req.user._id;
 
     newlisting.img={url,filename};
@@ -108,7 +107,7 @@ module.exports.deleteList = async (req,res)=>{
         location:newLocation,
         country:newCountry,
     });
-    
+
     req.flash("success","List updated");
     res.redirect("/listings");
 
@@ -128,4 +127,17 @@ module.exports.Search = async (req,res) =>{
         res.redirect("/listings")
     }
     
+};
+
+module.exports.IconSearch = async(req,res)=>{
+    let{trend} = req.params;
+    let printingListings = await listing.find({$or:[
+        {category: {$regex : `${trend}`, $options:"i"  }},
+    ]})
+    if(printingListings[0]){
+        res.render("./listings/index.ejs",{printingListings})
+    }else{
+        req.flash("error","No such Place List found")
+        res.redirect("/listings")
+    }
 }

@@ -11,6 +11,16 @@
     .filter p{
         font-size: 0.8rem;
     }
+
+    .filter a{
+        text-decoration: none;
+        color: #222222;
+
+    }
+
+    .filter a:hover{
+        color: #fe424d;
+    }
         
 
 
@@ -19,7 +29,18 @@
         flex-wrap: nowrap;
         margin-top: 2rem;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        position:relative;
+    
+    }
+
+    .icons{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        align-items: center;
+        justify-content: space-around;  
+
     }
 
     .filter:hover{
@@ -43,49 +64,71 @@
 
 </style>
     <div id="filters">
-        <div class="filter">
-            <i class="fa-regular fa-fire"></i>
-            <p>Trending</p>
-        </div>
+        <div class="icons ">
+            <div class="filter">
+                <a href="/listings/search/icon/trending">
+                    <i class="fa-solid fa-fire"></i>
+                    <p>Trending</p>
+                </a>
+            </div>
 
-        <div class="filter">
-            <i class="fa-solid fa-bed"></i>
-            <p>Rooms</p>
-        </div>
+            <div class="filter">
+                <a href="/listings/search/icon/rooms">
+                    <i class="fa-solid fa-bed"></i>
+                    <p>Rooms</p>
+                </a>
+            </div>
 
-        <div class="filter">
-            <i class="fa-solid fa-mountain-city"></i>
-            <p>iconinc city</p>
-        </div>
+    
+            <div class="filter">
+                <a href="/listings/search/icon/iconic">
+                    <i class="fa-solid fa-mountain-city"></i>
+                    <p>iconinc city</p>
+                </a>
+            </div>
 
-        <div class="filter">
-            <i class="fa-solid fa-mountain"></i>
-            <p>Mountain citites</p>
-        </div>
+    
 
-        <div class="filter">
-            <i class="fa-brands fa-fort-awesome"></i>
-            <p>Castles</p>
-        </div>
 
-        <div class="filter">
-            <i class="fa-solid fa-person-swimming"></i>        
-            <p>pools</p>
-        </div>
+    
+            <div class="filter">
+                <a href="/listings/search/icon/Castles">
+                    <i class="fa-brands fa-fort-awesome"></i>
+                    <p>Castles Cities</p>
+                </a>
+            </div>
 
-        <div class="filter">
-            <i class="fa-solid fa-campground"></i>
-            <p>campaigns</p>
-        </div>
+    
+            <div class="filter">
+                <a href="/listings/search/icon/pools">
+                    <i class="fa-solid fa-person-swimming"></i>        
+                    <p>Pool Room</p>
+                </a>
+            </div>
 
-        <div class="filter">
-            <i class="fa-solid fa-cow"></i>       
-            <p>farm</p>
-        </div>
+    
+            <div class="filter">
+                <a href="/listings/search/icon/camp">
+                    <i class="fa-solid fa-campground"></i>
+                    <p>campaigns</p>
+                </a>
+            </div>
 
-        <div class="filter">
-            <i class="fa-regular fa-snowflake"></i>
-            <p>Snowflake</p>
+    
+            <div class="filter">
+                <a href="/listings/search/icon/farm">
+                    <i class="fa-solid fa-cow"></i>       
+                    <p>farm</p>
+                </a>
+            </div>
+
+    
+            <div class="filter">
+                <a href="/listings/search/icon/snow">
+                    <i class="fa-regular fa-snowflake"></i>
+                    <p>Snowflake</p>
+                </a>
+            </div>
         </div>
 
         <div class="tax-toggle">
@@ -96,15 +139,16 @@
                 role="switch" 
                 id="flexSwitchCheckDefault">
                 
-                <label 
-                class="form-check-label" for="flexSwitchCheckDefault">
-                Display total after taxes
+                <label class="form-check-label tax " for="flexSwitchCheckDefault">
+                Taxes
                 </label>
-
-              </div>
+            </div>
         </div>
     </div>
-<div class="row row-cols-lg-3 row-colg-md-2 row-cols-sm-1 mt-3">
+
+
+
+<div class="row row-cols-lg-3 row-colg-md-2 row-cols-sm-1 mt-3 absolute">
     <% for(let listing of printingListings){ %>
         <a href="/listings/<%= listing.id %>" class="show-image">
              <div class="card col" >

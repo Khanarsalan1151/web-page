@@ -35,6 +35,8 @@ router
 // Editing form of listing
 router.get("/:id/edit",isLoggedInsidelist,isOwner,wrapAsync(listingController.editListForm));
 
+router.get("/search/icon/:trend", wrapAsync(listingController.IconSearch))
+
 
 
 
