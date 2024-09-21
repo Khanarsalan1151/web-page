@@ -16,26 +16,26 @@ router
 .route("/")
 .get(wrapAsync(listingController.index))
 .post(isLoggedIn,
-    upload.single('listings[img]'),
+    upload.single('file'),
     validatelisting,
     wrapAsync(listingController.createNewList))
 
 
 
-router.get("/new", isLoggedIn, listingController.renderNewForm);
+// router.get("/new", isLoggedIn, listingController.renderNewForm);
 
-router.get("/search", wrapAsync(listingController.Search) )
+// router.get("/search", wrapAsync(listingController.Search) )
 
-router
-.route("/:id")
-.get(wrapAsync(listingController.showIndividualListing))
-.patch(isLoggedInsidelist, isOwner,upload.single('listings[img]'), validatelisting, wrapAsync(listingController.editList))
-.delete(isLoggedInsidelist,isOwner, wrapAsync(listingController.deleteList))
+// router
+// .route("/:id")
+// .get(wrapAsync(listingController.showIndividualListing))
+// .patch(isLoggedInsidelist, isOwner,upload.single('listings[img]'), validatelisting, wrapAsync(listingController.editList))
+// .delete(isLoggedInsidelist,isOwner, wrapAsync(listingController.deleteList))
 
-// Editing form of listing
-router.get("/:id/edit",isLoggedInsidelist,isOwner,wrapAsync(listingController.editListForm));
+// // Editing form of listing
+// router.get("/:id/edit",isLoggedInsidelist,isOwner,wrapAsync(listingController.editListForm));
 
-router.get("/search/icon/:trend", wrapAsync(listingController.IconSearch))
+// router.get("/search/icon/:trend", wrapAsync(listingController.IconSearch))
 
 
 

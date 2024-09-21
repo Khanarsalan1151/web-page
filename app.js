@@ -10,7 +10,7 @@ const port = 3000;
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const localUrl = "mongodb://127.0.0.1:27017/wanderlust"
+const localUrl = "mongodb://127.0.0.1:27017/EvaIas"
 const mongoUrl = process.env.ATLASDB_URL
 const ExpressError = require("./utils/ExpressError.js");
 const listingsRoute = require("./routes/listingRout.js")
@@ -36,7 +36,7 @@ main().then(()=>{
 
 //Function to start a database connection;
 async function main(){
-  await  mongoose.connect(mongoUrl);
+    await  mongoose.connect(localUrl);
 }
 
 //Functionalities of app

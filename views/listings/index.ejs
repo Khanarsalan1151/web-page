@@ -1,189 +1,112 @@
 <% layout("/layouts/boilerplate") %>
 <style>
-    .filter{
-        text-align: center;
-        margin-right: 2rem;
-        margin-top: 1rem;
-        opacity:0.6
-
-    }
-
-    .filter p{
-        font-size: 0.8rem;
-    }
-
-    .filter a{
-        text-decoration: none;
-        color: #222222;
-
-    }
-
-    .filter a:hover{
-        color: #fe424d;
-    }
-        
-
-
-    #filters{
-        display: flex;
-        flex-wrap: nowrap;
-        margin-top: 2rem;
+    .top{
+        background-color: #00aaff;
+        color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 20px;
+        display:  flex;
         align-items: center;
-        justify-content: space-evenly;
-        position:relative;
-    
+        justify-content: center;
+        flex-direction: column;
     }
+    .top p {
+            font-size: 36px;
+            margin: 10px 0;
+        }
 
-    .icons{
-        display: flex;
-        flex-wrap: wrap;
-        margin-top: 2rem;
-        align-items: center;
-        justify-content: space-around;  
 
-    }
+        .top h2 {
+            font-size: 18px;
+            margin: 0;
+        }
 
-    .filter:hover{
-        opacity:1;
-        cursor: pointer
-    }
+        .collection{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
 
-    .tax-info{
-        display: none;
-    }
-
-    .tax-toggle{
-        border:1px solid black;
-        border-radius:1rem;
-
-        padding: 1rem;
-        margin-left: 5rem;
-        display:flex;
-        align-items: center;
-    }
-
+        .card{
+            border: 1px solid black !important;
+            margin-top: 5rem !important;
+        }
 </style>
-    <div id="filters">
-        <div class="icons ">
-            <div class="filter">
-                <a href="/listings/search/icon/trending">
-                    <i class="fa-solid fa-fire"></i>
-                    <p>Trending</p>
-                </a>
-            </div>
-
-            <div class="filter">
-                <a href="/listings/search/icon/rooms">
-                    <i class="fa-solid fa-bed"></i>
-                    <p>Rooms</p>
-                </a>
-            </div>
-
-    
-            <div class="filter">
-                <a href="/listings/search/icon/iconic">
-                    <i class="fa-solid fa-mountain-city"></i>
-                    <p>iconinc city</p>
-                </a>
-            </div>
-
-    
 
 
-    
-            <div class="filter">
-                <a href="/listings/search/icon/Castles">
-                    <i class="fa-brands fa-fort-awesome"></i>
-                    <p>Castles Cities</p>
-                </a>
-            </div>
+<div class="collection">
 
-    
-            <div class="filter">
-                <a href="/listings/search/icon/pools">
-                    <i class="fa-solid fa-person-swimming"></i>        
-                    <p>Pool Room</p>
-                </a>
-            </div>
 
-    
-            <div class="filter">
-                <a href="/listings/search/icon/camp">
-                    <i class="fa-solid fa-campground"></i>
-                    <p>campaigns</p>
-                </a>
-            </div>
-
-    
-            <div class="filter">
-                <a href="/listings/search/icon/farm">
-                    <i class="fa-solid fa-cow"></i>       
-                    <p>farm</p>
-                </a>
-            </div>
-
-    
-            <div class="filter">
-                <a href="/listings/search/icon/snow">
-                    <i class="fa-regular fa-snowflake"></i>
-                    <p>Snowflake</p>
-                </a>
-            </div>
+    <div class="card" style="width: 18rem">
+        <div class="top">
+            <h2>Unlimited data here</h2>
+            <p>Only 14999</p>
         </div>
-
-        <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
-                <input 
-                class="form-check-input" 
-                type="checkbox" 
-                role="switch" 
-                id="flexSwitchCheckDefault">
-                
-                <label class="form-check-label tax " for="flexSwitchCheckDefault">
-                Taxes
-                </label>
-            </div>
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Buy Now!!!!</a>
         </div>
     </div>
 
 
 
-<div class="row row-cols-lg-3 row-colg-md-2 row-cols-sm-1 mt-3 absolute">
-    <% for(let listing of printingListings){ %>
-        <a href="/listings/<%= listing.id %>" class="show-image">
-             <div class="card col" >
-                    <img src="<%= listing.img.url %>" class="card-img-top" alt="..." style="height: 20rem;">
-                <div class="card-img-overlay"> </div>
-                    <div class="card-body">
-                        <p class="card-text"><%= listing.title %> <br>
-                            <b> &#8377; <%= listing.price.toLocaleString("en-IN")%></b> /night
-                            
-                            <i class="tax-info">&nbsp; &nbsp; +18% GST</i>
-                        </p>
-                    </div>
-                </div>   
-        </a>
-        <%}%>
-    </div> 
+
+    <div class="card" style="width: 18rem; margin-top: 10rem;">
+        <div class="top">
+            <h2>Unlimited data here</h2>
+            <p>Only 14999</p>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Buy Now!!!!</a>
+        </div>
+    </div>
+
+
+
+
+
+
+<div class="card" style="width: 18rem; margin-top: 10rem;">
+    <div class="top">
+        <h2>Unlimited data here</h2>
+        <p>Only 14999</p>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+    <div class="card-body">
+        <a href="#" class="card-link">Buy Now!!!!</a>
+    </div>
 </div>
 
-<script>
-        
-    let taxSwitch = document.querySelector("#flexSwitchCheckDefault");
-    let flag=0;
-    taxSwitch.addEventListener("click", ()=>{
-        let taxinfo = document.querySelectorAll(".tax-info");
-        console.log(taxinfo)
-        for(let taxinfoindividual of taxinfo){
-                if(taxinfoindividual.style.display != "inline"){
-                    taxinfoindividual.style.display = "inline";
+</div>
 
-                }else{
-                    taxinfoindividual.style.display = "none";
-                }
-            }
-        
-        }
-        
-    )
-</script>

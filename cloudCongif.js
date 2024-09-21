@@ -12,8 +12,8 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: 'wanderlust_DEV',
-      allowedFormats:["png", "jpg", "jpeg"] // supports promises as well
+      folder: 'IAS_DEV',
+      allowedFormats:["pdf"] // supports promises as well
     },
   });
 
